@@ -6,23 +6,15 @@ defmodule JumpRenderAppWeb.TaskController do
   def export(conn, _params) do
     tasks = Tasks.list_tasks(:asc)
 
-    csv_content =
-      [["ID", "Title", "Completed", "Due Date"] | Enum.map(tasks, &task_to_csv_row/1)]
+    csv_data =
+      tasks
+      |> Enum.map(fn t -> [t.title, t.due_date, t.completed] end)
       |> CSV.encode()
-      |> Enum.join("\n")
+      |> Enum.join("")
 
     conn
     |> put_resp_content_type("text/csv")
     |> put_resp_header("content-disposition", "attachment; filename=\"tasks.csv\"")
-    |> send_resp(200, csv_content)
-  end
-
-  defp task_to_csv_row(task) do
-    [
-      task.id,
-      task.title,
-      if(task.completed, do: "Yes", else: "No"),
-      task.due_date
-    ]
+    |> send_resp(200, csv_data)
   end
 end

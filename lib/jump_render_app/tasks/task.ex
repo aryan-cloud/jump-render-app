@@ -10,11 +10,9 @@ defmodule JumpRenderApp.Tasks.Task do
     timestamps()
   end
 
-  @doc false
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:title, :due_date, :completed])
     |> validate_required([:title, :due_date])
   end
 end
-
