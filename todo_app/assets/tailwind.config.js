@@ -8,18 +8,18 @@ const path = require("path")
 module.exports = {
   content: [
     "./js/**/*.js",
-    "../lib/*_web/**/*.*ex",
-    "../lib/*_web/**/templates/**/*.*ex",
-    "../lib/*_web/**/live/**/*.*ex",
-    "../lib/*_web/**/components/**/*.*ex"
+    "../lib/todo_app_web.ex",
+    "../lib/todo_app_web/**/*.*ex"
   ],
   theme: {
     extend: {
-      
+      colors: {
+        brand: "#FD4F00",
+      }
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require("@tailwindcss/forms"),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:
     //
